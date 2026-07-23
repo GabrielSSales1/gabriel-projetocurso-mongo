@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +38,11 @@ public class UserResource {
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(objDto.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+    @RequestMapping(value="/{id}",method = RequestMethod.DELETE)
+    public ResponseEntity<List<Void>> deleteById(@PathVariable String id){
+       service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
